@@ -1,5 +1,6 @@
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
+import Block from './Block.js'; // Импортируем класс Block
 
 /**
  * P2P-сервер для синхронизации блокчейна между нодами.
@@ -19,7 +20,7 @@ export default class P2PServer {
   listen() {
     const ioServer = new Server(this.p2pPort, {
       cors: {
-        origin: "*", // Разрешаем подключения отовсюду (в реальном мире нужно настроить строже)
+        origin: "*",
       }
     });
 
@@ -70,8 +71,6 @@ export default class P2PServer {
       try {
         const data = JSON.parse(message);
         console.log(`[${this.serverName}] Received updated chain from a peer.`);
-
-        // Заменяем нашу цепочку, если полученная валидна и длиннее
         this.replaceChain(data);
       } catch (error) {
         console.error(`[${this.serverName}] Error parsing incoming message:`, error);
@@ -96,24 +95,33 @@ export default class P2PServer {
 
   /**
    * Логика обновления цепи (простейший консенсус).
-   * @param {Array} newChain Новая цепочка блоков.
+   * @param {Array<Object>} newChain Новая цепочка блоков (в виде простых объектов).
    */
   replaceChain(newChain) {
-    if (newChain.length > this.blockchain.chain.length) {
-      console.log(`[${this.serverName}] Received chain is longer. Attempting to validate...`);
-      
-      // Создаем временный экземпляр Blockchain для валидации новой цепи
-      const tempChain = new this.blockchain.constructor();
-      tempChain.chain = newChain;
-
-      if (tempChain.isChainValid()) {
-        console.log(`[${this.serverName}] Received chain is valid. Replacing current chain.`);
-        this.blockchain.chain = newChain;
-      } else {
-        console.log(`[${this.serverName}] Received chain is invalid.`);
-      }
-    } else {
+    if (newChain.length <= this.blockchain.chain.length) {
       console.log(`[${this.serverName}] Received chain is not longer than current chain. Ignoring.`);
+      return;
+    }
+
+    console.log(`[${this.serverName}] Received chain is longer. Attempting to validate...`);
+
+    // "Оживляем" простые объекты, превращая их в экземпляры класса Block
+    const hydratedChain = newChain.map(plainBlock => {
+      const block = new Block(0, ''); // Создаем временный экземпляр
+      Object.assign(block, plainBlock); // Копируем все свойства из объекта в экземпляр
+      return block;
+    });
+
+    const tempBlockchain = new this.blockchain.constructor();
+    tempBlockchain.chain = hydratedChain;
+
+    if (tempBlockchain.isChainValid()) {
+      console.log(`[${this.serverName}] Received chain is valid. Replacing current chain.`);
+      this.blockchain.chain = hydratedChain;
+      // Оповещаем других пиров, что мы обновились
+      this.broadcastChain();
+    } else {
+      console.log(`[${this.serverName}] Received chain is invalid.`);
     }
   }
 }
