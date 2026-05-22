@@ -15,29 +15,29 @@ fi
 # 0. Запускаем сервер мониторинга
 echo "    -> Starting Monitor Server (Port: 8080)"
 cd ./monitor
-npm install > /dev/null 2>&1 # Тихая установка зависимостей
-npm run build > /dev/null 2>&1 # Собираем React приложение
+npm install > /dev/null 2>&1
+npm run build > /dev/null 2>&1
 npm start &
-sleep 4 # Увеличиваем паузу до 4 секунд для надежности
+sleep 4
 
 cd ../node
 
-# 1. Запускаем первую ноду - Sunny
-echo "    -> Starting Sunny Node (HTTP: 3001, P2P: 6001)"
-SERVER_NAME=Sunny HTTP_PORT=3001 P2P_PORT=6001 npm start &
+# 1. Запускаем Sunny (МАЙНЕР)
+echo "    -> Starting Sunny Node (HTTP: 3001, P2P: 6001) [MINER]"
+SERVER_NAME=Sunny HTTP_PORT=3001 P2P_PORT=6001 IS_MINER=true npm start &
 sleep 2
 
-# 2. Запускаем вторую ноду - Jonny
-echo "    -> Starting Jonny Node (HTTP: 3002, P2P: 6002)"
-SERVER_NAME=Jonny HTTP_PORT=3002 P2P_PORT=6002 PEERS=ws://localhost:6001 npm start &
+# 2. Запускаем Jonny (МАЙНЕР)
+echo "    -> Starting Jonny Node (HTTP: 3002, P2P: 6002) [MINER]"
+SERVER_NAME=Jonny HTTP_PORT=3002 P2P_PORT=6002 PEERS=ws://localhost:6001 IS_MINER=true npm start &
 sleep 2
 
-# 3. Запускаем третью ноду - Gov
+# 3. Запускаем Gov (Обычная нода)
 echo "    -> Starting Gov Node (HTTP: 3003, P2P: 6003)"
 SERVER_NAME=Gov HTTP_PORT=3003 P2P_PORT=6003 PEERS=ws://localhost:6001,ws://localhost:6002 npm start &
 sleep 2
 
-# 4. Запускаем четвертую ноду - Bank
+# 4. Запускаем Bank (Обычная нода)
 echo "    -> Starting Bank Node (HTTP: 3004, P2P: 6004)"
 SERVER_NAME=Bank HTTP_PORT=3004 P2P_PORT=6004 PEERS=ws://localhost:6001,ws://localhost:6002,ws://localhost:6003 npm start &
 

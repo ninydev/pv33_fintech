@@ -1,0 +1,111 @@
+.client-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #61dafb;
+  text-align: center;
+}
+
+.control-panel {
+  background-color: #2d2d2d;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #444;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #aaa;
+}
+
+select, input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background-color: #1e1e1e;
+  color: white;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #61dafb;
+  color: #242424;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #4fa8c8;
+}
+
+button:disabled {
+  background-color: #555;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.blockchain-view {
+  margin-top: 30px;
+}
+
+.block {
+  background-color: #2d2d2d;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  word-break: break-all; /* Чтобы длинные хэши не ломали верстку */
+}
+
+/* Стили для разных типов блоков */
+.block.genesis { border-left: 5px solid #ccc; }
+.block.coin { border-left: 5px solid #ffd700; }
+.block.data { border-left: 5px solid #4caf50; }
+
+/* Подсветка блоков, созданных этим клиентом */
+.block.my-block {
+  border: 2px solid #61dafb;
+  background-color: #2a3b47;
+}
+
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #444;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.block-index {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.block-type {
+  font-size: 0.8em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #444;
+}
+
+.my-badge {
+  background-color: #61dafb;
+  color: #242424;
+  font-weight: bold;
+  margin-left: 10px;
+}

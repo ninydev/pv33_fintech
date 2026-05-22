@@ -10,15 +10,11 @@ function App() {
   useEffect(() => {
     const socket = io(MONITOR_SERVER_URL);
 
-    // Обработчик для получения полного начального состояния
     socket.on('initial_state', (initialState) => {
-      console.log('Received initial state:', initialState);
       setNodes(initialState);
     });
 
-    // Обработчик для получения инкрементальных обновлений
     socket.on('update', (data) => {
-      console.log('Received update:', data);
       setNodes(prevNodes => ({
         ...prevNodes,
         [data.name]: {
@@ -33,24 +29,50 @@ function App() {
     };
   }, []);
 
+  const getBlockClass = (block) => {
+    // Проверяем на особую монету по хэшу
+    if (BigInt('0x' + block.hash) % 9n === 0n && block.index > 0) {
+      return 'special';
+    }
+    if (block.index === 0) return 'genesis';
+    if (block.data?.type === 'coin') return 'coin';
+    return 'data';
+  };
+
+  const getBlockTitle = (block) => {
+    let info = `Index: ${block.index}\nHash: ${block.hash.substring(0, 15)}...`;
+    if (block.data && block.data.message) {
+      info += `\nMessage: ${block.data.message}`;
+    } else if (typeof block.data === 'string') {
+      info += `\nData: ${block.data}`;
+    } else if (block.data?.type === 'special_coin') {
+      info += `\nType: Special Coin!`;
+    }
+    return info;
+  };
+
   return (
     <div className="monitor-container">
-      <h1>Blockchain Network Monitor</h1>
+      <h1>dApp Network Monitor</h1>
       <div className="nodes-grid">
         {Object.keys(nodes).length === 0 && <p>Waiting for nodes to connect...</p>}
         {Object.entries(nodes).map(([name, data]) => (
           <div key={name} className="node-card">
-            <h2>{name}</h2>
-            <p>Blocks: {data.chain.length}</p>
-            <p>Last Update: {data.lastUpdate}</p>
+            <div className="node-header">
+              <h2>{name}</h2>
+              <div className="node-stats">
+                <span>Blocks: {data.chain.length}</span>
+                <span>Last Update: {data.lastUpdate}</span>
+              </div>
+            </div>
             <div className="mini-blockchain">
-              {data.chain.map((block, index) => (
+              {data.chain.map((block) => (
                 <div
                   key={block.hash}
-                  className="mini-block"
-                  title={`Hash: ${block.hash}\nPrevHash: ${block.previousHash}`}
+                  className={`mini-block ${getBlockClass(block)}`}
+                  title={getBlockTitle(block)}
                 >
-                  {index}
+                  {block.index}
                 </div>
               ))}
             </div>
