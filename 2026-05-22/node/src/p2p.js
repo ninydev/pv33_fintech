@@ -6,10 +6,11 @@ import { io } from 'socket.io-client';
  * Использует Socket.IO для двусторонней связи в реальном времени.
  */
 export default class P2PServer {
-  constructor(blockchain, p2pPort) {
+  constructor(blockchain, p2pPort, serverName = 'Node') {
     this.blockchain = blockchain;
     this.sockets = []; // Массив подключенных сокетов (других нод)
     this.p2pPort = p2pPort;
+    this.serverName = serverName;
   }
 
   /**
@@ -22,7 +23,7 @@ export default class P2PServer {
       }
     });
 
-    console.log(`Listening for P2P connections on port: ${this.p2pPort}`);
+    console.log(`[${this.serverName}] Listening for P2P connections on port: ${this.p2pPort}`);
 
     ioServer.on('connection', (socket) => {
       this.connectSocket(socket);
@@ -34,7 +35,7 @@ export default class P2PServer {
    * @param {string} peer Адрес пира (например, 'ws://localhost:6002')
    */
   connectToPeer(peer) {
-    console.log(`Attempting to connect to peer: ${peer}`);
+    console.log(`[${this.serverName}] Attempting to connect to peer: ${peer}`);
     const socket = io(peer);
 
     socket.on('connect', () => {
@@ -42,7 +43,7 @@ export default class P2PServer {
     });
 
     socket.on('connect_error', (error) => {
-      console.log(`Error connecting to peer ${peer}:`, error.message);
+      console.log(`[${this.serverName}] Error connecting to peer ${peer}:`, error.message);
     });
   }
 
@@ -52,7 +53,7 @@ export default class P2PServer {
    */
   connectSocket(socket) {
     this.sockets.push(socket);
-    console.log('New peer connected.');
+    console.log(`[${this.serverName}] New peer connected.`);
 
     this.messageHandler(socket);
 
@@ -68,12 +69,12 @@ export default class P2PServer {
     socket.on('message', (message) => {
       try {
         const data = JSON.parse(message);
-        console.log('Received updated chain from a peer.');
+        console.log(`[${this.serverName}] Received updated chain from a peer.`);
 
         // Заменяем нашу цепочку, если полученная валидна и длиннее
         this.replaceChain(data);
       } catch (error) {
-        console.error('Error parsing incoming message:', error);
+        console.error(`[${this.serverName}] Error parsing incoming message:`, error);
       }
     });
   }
@@ -99,20 +100,20 @@ export default class P2PServer {
    */
   replaceChain(newChain) {
     if (newChain.length > this.blockchain.chain.length) {
-      console.log('Received chain is longer. Attempting to validate...');
+      console.log(`[${this.serverName}] Received chain is longer. Attempting to validate...`);
       
       // Создаем временный экземпляр Blockchain для валидации новой цепи
       const tempChain = new this.blockchain.constructor();
       tempChain.chain = newChain;
 
       if (tempChain.isChainValid()) {
-        console.log('Received chain is valid. Replacing current chain.');
+        console.log(`[${this.serverName}] Received chain is valid. Replacing current chain.`);
         this.blockchain.chain = newChain;
       } else {
-        console.log('Received chain is invalid.');
+        console.log(`[${this.serverName}] Received chain is invalid.`);
       }
     } else {
-      console.log('Received chain is not longer than current chain. Ignoring.');
+      console.log(`[${this.serverName}] Received chain is not longer than current chain. Ignoring.`);
     }
   }
 }

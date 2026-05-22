@@ -3,14 +3,15 @@ import Blockchain from './Blockchain.js';
 import Block from './Block.js';
 import P2PServer from './p2p.js';
 
-// Получаем порты из переменных окружения или используем значения по умолчанию
+// Получаем порты и имя из переменных окружения или используем значения по умолчанию
 const httpPort = process.env.HTTP_PORT || 3001;
 const p2pPort = process.env.P2P_PORT || 6001;
+const serverName = process.env.SERVER_NAME || 'Node';
 const initialPeers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 
 // --- ИНИЦИАЛИЗАЦИЯ ---
 const blockchain = new Blockchain();
-const p2pServer = new P2PServer(blockchain, p2pPort);
+const p2pServer = new P2PServer(blockchain, p2pPort, serverName); // Передаем имя сервера
 const app = express();
 
 app.use(express.json()); // Для парсинга JSON-тел запросов
@@ -35,7 +36,7 @@ app.post('/mineBlock', (req, res) => {
   // В реальном приложении здесь был бы майнинг (PoW)
   blockchain.addBlock(newBlock);
 
-  console.log('Block added:', newBlock);
+  console.log(`[${serverName}] Block added:`, newBlock);
   res.status(201).send(newBlock);
 
   // Рассылаем обновленную цепочку всем пирам
@@ -60,7 +61,7 @@ app.post('/addPeer', (req, res) => {
 
 // Запускаем HTTP-сервер
 app.listen(httpPort, () => {
-  console.log(`HTTP Server listening on port: ${httpPort}`);
+  console.log(`[${serverName}] HTTP Server listening on port: ${httpPort}`);
 });
 
 // Запускаем P2P-сервер
