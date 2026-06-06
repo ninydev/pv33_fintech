@@ -1,0 +1,306 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_artifactId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_price",
+						"type": "uint256"
+					}
+				],
+				"name": "addForSale",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "artifactPrices",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "artifactToOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "artifacts",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "damage",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "defense",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "ipfsHash",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "blacksmiths",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_artifactId",
+						"type": "uint256"
+					}
+				],
+				"name": "buyArtifact",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_damage",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_defense",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_ipfsHash",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "_player",
+						"type": "address"
+					}
+				],
+				"name": "craftArtifact",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_blacksmith",
+						"type": "address"
+					}
+				],
+				"name": "registerBlacksmith",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_artifactId",
+						"type": "uint256"
+					}
+				],
+				"name": "transferArtifact",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"addForSale(uint256,uint256)": {
+					"params": {
+						"_artifactId": "ID артефакта",
+						"_price": "Цена предмета в wei (например, 1000000000000000000 wei = 1 ETH)"
+					}
+				},
+				"buyArtifact(uint256)": {
+					"params": {
+						"_artifactId": "ID покупаемого артефакта"
+					}
+				},
+				"craftArtifact(string,uint256,uint256,string,address)": {
+					"params": {
+						"_damage": "Сила атаки",
+						"_defense": "Показатель защиты",
+						"_ipfsHash": "Ссылка на картинку/метаданные предмета в IPFS",
+						"_name": "Название артефакта (например, \"Меч Тысячи Истин\")",
+						"_player": "Кому в инвентарь положить этот предмет сразу после создания"
+					}
+				},
+				"transferArtifact(address,uint256)": {
+					"params": {
+						"_artifactId": "Уникальный ID передаваемого предмета",
+						"_to": "Адрес кошелька получателя"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"addForSale(uint256,uint256)": {
+					"notice": "Выставить предмет на продажу за фиксированную цену"
+				},
+				"buyArtifact(uint256)": {
+					"notice": "Купить предмет, выставленный на продажу"
+				},
+				"craftArtifact(string,uint256,uint256,string,address)": {
+					"notice": "Создание (минт) нового уникального предмета во вселенной игры"
+				},
+				"transferArtifact(address,uint256)": {
+					"notice": "Безопасная передача предмета другому игроку (Трейд / Подарок)"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"first_var.sol": "ArtiGame"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"first_var.sol": {
+			"keccak256": "0x6f77e4e67253adb0fba47e0b1a7985381bb16262313268da996597add597eda1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://982beed11ded9c8123400141b34033cf82716c08c6ea1abf22107c06c1e84c97",
+				"dweb:/ipfs/QmeBEeXFJ9rBFgWG1w6uxJL5upW4MggEAMLA2Qk2KcEf57"
+			]
+		}
+	},
+	"version": 1
+}

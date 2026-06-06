@@ -1,0 +1,212 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "artifactToOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "artifacts",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "damage",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "defense",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "ipfsHash",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "blacksmiths",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_damage",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_defense",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_ipfsHash",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "_player",
+						"type": "address"
+					}
+				],
+				"name": "craftArtifact",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_blacksmith",
+						"type": "address"
+					}
+				],
+				"name": "registerBlacksmith",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"craftArtifact(string,uint256,uint256,string,address)": {
+					"params": {
+						"_damage": "Сила атаки",
+						"_defense": "Показатель защиты",
+						"_ipfsHash": "Ссылка на картинку/метаданные предмета в IPFS",
+						"_name": "Название артефакта (например, \"Меч Тысячи Истин\")",
+						"_player": "Кому в инвентарь положить этот предмет сразу после создания"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"craftArtifact(string,uint256,uint256,string,address)": {
+					"notice": "Создание (минт) нового уникального предмета во вселенной игры"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Contacts/first_var.sol": "ArtiGame"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Contacts/first_var.sol": {
+			"keccak256": "0x3548e839d74d4bee84d7363d3477bc8adf9d847e09c62847b42d216bbd8216ae",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4ee99f5b84366180ec5919481b19c9b43216b6694635f9f8a61fd8215955d864",
+				"dweb:/ipfs/QmcXUwZEKhY7fQ8tG5EFssnxBAoYTGgeqHK7gPcebAfjvN"
+			]
+		}
+	},
+	"version": 1
+}
