@@ -1,6 +1,8 @@
-import { ethers } from "hardhat";
+import { network } from "hardhat";
 
 async function main() {
+    const { ethers } = await network.connect();
+
     // Получаем фабрику нашего контракта ArtiGame
     const ArtiGame = await ethers.getContractFactory("ArtiGame");
 

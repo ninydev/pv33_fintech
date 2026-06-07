@@ -15,8 +15,12 @@ if not w3.is_connected():
 
 # !!! ЗАПОЛНИ ЭТИ ДАННЫЕ ПОСЛЕ ДЕПЛОЯ КОНТРАКТА !!!
 CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+# 0x5FbDB2315678afecb367f032d93F642f64180aa3 - это адрес, который Hardhat выдает после деплоя. Убедись, что он совпадает с твоим!
+
+
 # Приватный ключ Owner (Account #0 из консоли Hardhat)
 OWNER_PRIVATE_KEY = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+# 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 - это приватный ключ для первого аккаунта, который Hardhat создает по умолчанию. НЕ ИСПОЛЬЗУЙ ЭТОТ КЛЮЧ В РЕАЛЬНЫХ ПРОЕКТАХ!
 OWNER_ADDRESS = w3.eth.account.from_key(OWNER_PRIVATE_KEY).address
 
 # --- ABI КОНТРАКТА ---

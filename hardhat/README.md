@@ -1,57 +1,49 @@
-# Sample Hardhat 3 Beta Project (`mocha` and `ethers`)
+# Инструкции по развертыванию контракта
 
-This project showcases a Hardhat 3 Beta project using `mocha` for tests and the `ethers` library for Ethereum interactions.
+Этот документ описывает, как развернуть смарт-контракт `ArtiGame` в локальной тестовой сети Hardhat.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+---
 
-## Project Overview
+### 🇷🇺 Инструкция на русском языке
 
-This example project includes:
-
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
-
-## Usage
-
-### Running Tests
-
-To run all the tests in the project, execute the following command:
-
-```shell
-npx hardhat test
+#### 1. Установка зависимостей
+Перед первым запуском убедитесь, что все зависимости проекта установлены. Откройте терминал в папке `hardhat/` и выполните:
+```sh
+npm install
 ```
 
-You can also selectively run the Solidity or `mocha` tests:
-
-```shell
-npx hardhat test solidity
-npx hardhat test mocha
+#### 2. Компиляция контракта
+Этот шаг проверяет код контракта на ошибки и подготавливает его к развертыванию.
+```sh
+npx hardhat compile
 ```
 
-### Make a deployment to Sepolia
+#### 3. Развертывание в тестовой сети Hardhat
+Эта команда запускает скрипт `scripts/deploy-my.js` для развертывания контракта в локальной тестовой сети.
+```sh
+npx hardhat run scripts/deploy-my.js
+```
+После успешного выполнения в терминале вы увидите адрес развернутого контракта.
 
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
+---
 
-To run the deployment to a local chain:
+### 🇺🇦 Інструкція українською мовою
 
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
+#### 1. Встановлення залежностей
+Перед першим запуском переконайтеся, що всі залежності проекту встановлені. Відкрийте термінал у папці `hardhat/` та виконайте:
+```sh
+npm install
 ```
 
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
-
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
-
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
+#### 2. Компіляція контракту
+Цей крок перевіряє код контракту на помилки та готує його до розгортання.
+```sh
+npx hardhat compile
 ```
 
-After setting the variable, you can run the deployment with the Sepolia network:
-
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
+#### 3. Розгортання в тестовій мережі Hardhat
+Ця команда запускає скрипт `scripts/deploy-my.js` для розгортання контракту в локальній тестовій мережі.
+```sh
+npx hardhat run scripts/deploy-my.js
 ```
+Після успішного виконання в терміналі ви побачите адресу розгорнутого контракту.
